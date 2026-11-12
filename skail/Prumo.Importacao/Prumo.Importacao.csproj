@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Prumo.Importacao</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Skail.Platform.Runtime" Version="2.2.*" />
+    <PackageReference Include="Skail.Platform.Analyzer" Version="2.2.*" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.*" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+# Exemplo de unit do systemd para o importador, em /etc/systemd/system/prumo-importador.service.
+# Grava o stdout (uma linha por evento, no horário de Brasília) em /var/log/prumo-importador/importador.log.
+#   sudo mkdir -p /var/log/prumo-importador
+#   sudo systemctl daemon-reload && sudo systemctl enable --now prumo-importador
+[Unit]
+Description=Prumo - importador de pedidos do portal (SQS)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/opt/prumo-importador
+ExecStart=/usr/bin/dotnet /opt/prumo-importador/Prumo.Importador.dll
+Environment=DOTNET_ENVIRONMENT=Production
+Environment=TZ=America/Sao_Paulo
+StandardOutput=append:/var/log/prumo-importador/importador.log
+StandardError=append:/var/log/prumo-importador/importador.log
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

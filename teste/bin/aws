@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# AWS CLI do teste local: repassa tudo para o aws de verdade, menos a tarefa de redrive, que o moto não tem.
+aqui=$(cd "$(dirname "$0")/.." && pwd)
+args=("$@")
+for i in "${!args[@]}"; do
+  case "${args[$i]}" in
+    start-message-move-task)
+      arn=""; destino=""; rate=500
+      for j in "${!args[@]}"; do
+        [ "${args[$j]}" = --source-arn ] && arn=${args[$((j + 1))]}
+        [ "${args[$j]}" = --destination-arn ] && destino=${args[$((j + 1))]}
+        [ "${args[$j]}" = --max-number-of-messages-per-second ] && rate=${args[$((j + 1))]}
+      done
+      exec python3 "$aqui/mover.py" start "$arn" "$rate" "$destino" ;;
+    list-message-move-tasks)
+      exec python3 "$aqui/mover.py" list ;;
+  esac
+done
+PATH=${PATH#"$aqui/bin:"} exec aws "$@"
