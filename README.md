@@ -91,6 +91,3 @@ O log sai em uma linha por evento (`01:02:00 warn PV-48213 receive=1 ...`, forma
 
 Transparência: o autor do vídeo trabalha na skail.
 
-## Licença
-
-MIT.
